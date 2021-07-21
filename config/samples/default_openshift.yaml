@@ -789,6 +789,9 @@ spec:
     ## Set the enabled flag to true for enabling metrics-server.
     ## This is required before enabling fluentd autoscaling unless you have an existing metrics-server in the cluster.
     enabled: false
+    image:
+      repository: yoza/metrics-server-ubi-base-test
+      tag: v0.4.2
     apiService:
       create: true
     extraArgs:
@@ -807,7 +810,8 @@ spec:
   ## ref: https://github.com/fluent/helm-charts/blob/master/charts/fluent-bit/values.yaml
   fluent-bit:
     image:
-      repository: public.ecr.aws/sumologic/fluent-bit
+      repository: quay.io/yoza/fluent-bit-ubi
+      tag: latest
       pullPolicy: IfNotPresent
       # If specified, use these secrets to access the image
       # pullSecrets:
@@ -1251,6 +1255,12 @@ spec:
       enabled: false
       defaultDashboardsEnabled: false
     prometheusOperator:
+      image:
+        repository: quay.io/yoza/prometheus-operator-ubi-test
+        tag: v0.43.2
+      prometheusConfigReloaderImage:
+        repository: registry.redhat.io/openshift4/ose-prometheus-config-reloader
+        tag: v4.7.0
       ## Labels to add to the operator pod
       podLabels: {}
       ## Annotations to add to the operator pod
@@ -1307,6 +1317,9 @@ spec:
       - openshift-user-workload-monitoring
     ## Resource limits for kube-state-metrics
     kube-state-metrics:
+      image:
+        repository: quay.io/yoza/kube-state-metrics-ubi
+        tag: v1.9.7
       ## Custom labels to apply to service, deployment and pods
       customLabels: {}
       ## Additional annotations for pods in the DaemonSet
@@ -1320,6 +1333,9 @@ spec:
         #   memory: 32Mi
     ## Resource limits for prometheus node exporter
     prometheus-node-exporter:
+      image:
+        repository: registry.redhat.io/openshift4/ose-prometheus-node-exporter
+        tag: v4.7
       service:
         port: 9200
         targetPort: 9200
@@ -1335,6 +1351,9 @@ spec:
         #   cpu: 100m
         #   memory: 30Mi
     prometheus:
+      image:
+        repository: quay.io/madorn/prometheus
+        tag: v2.22.1
       additionalServiceMonitors:
         - name: collection-sumologic-fluentd-logs
           additionalLabels:
@@ -1417,7 +1436,7 @@ spec:
             cpu: 500m
             memory: 1Gi
         thanos:
-          baseImage: quay.io/thanos/thanos
+          baseImage: quay.io/madorn/thanos
           version: v0.10.0
           ## Defines the resource requirements for the Thanos sidecar
           ## Setting those as there are no default values in the upstream chart
@@ -2287,7 +2306,8 @@ spec:
   telegraf-operator:
     enabled: false
     image:
-      sidecarImage: public.ecr.aws/sumologic/telegraf:1.14.4
+      repository: quay.io/yoza/telegraf-operator-ubi-test
+      sidecarImage: quay.io/yoza/telegraf-operand-ubi:v1.14.4
     replicaCount: 1
     classes:
       secretName: "telegraf-operator-classes"
@@ -2316,7 +2336,7 @@ spec:
     extraInitContainers:
       ## Add initContainer to wait until kernel-devel is installed on host
       - name: init-falco
-        image: busybox:1.33.0
+        image: registry.access.redhat.com/ubi8/ubi-minimal:8.4
         command:
           - 'sh'
           - '-c'
@@ -2372,3 +2392,15 @@ spec:
   ## ref: https://github.com/SumoLogic/tailing-sidecar/blob/main/helm/tailing-sidecar-operator/values.yaml
   tailing-sidecar-operator:
     enabled: false
+    operator:
+      image:
+        repository: quay.io/yoza/tailing-sidecar-operator-test-1
+        tag: latest
+    sidecar:
+      image:
+        repository: quay.io/yoza/tailing-sidecar-ubi:v0.3.0
+        tag: v0.3.0
+    kubeRbacProxy:
+      image:
+        repository: registry.redhat.io/openshift4/ose-kube-rbac-proxy
+        tag: v4.6.0
