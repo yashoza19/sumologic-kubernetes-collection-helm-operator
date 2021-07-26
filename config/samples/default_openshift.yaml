@@ -203,8 +203,8 @@ spec:
 
   fluentd:
     image:
-      repository: public.ecr.aws/sumologic/kubernetes-fluentd
-      tag: 1.12.2-sumo-0
+      repository: quay.io/yoza/sumologic-fluentd-ubi
+      tag: 1.12.1
       pullPolicy: IfNotPresent
 
     ## Specifies whether a PodSecurityPolicy should be created
