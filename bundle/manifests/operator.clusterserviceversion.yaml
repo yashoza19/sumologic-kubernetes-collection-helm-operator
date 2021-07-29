@@ -1999,6 +1999,33 @@ spec:
                       - --leader-elect
                       - --leader-election-id=sumologic-kubernetes-collection-helm-operator
                     image: public.ecr.aws/sumologic/sumologic-kubernetes-collection-helm-operator:2.1.1-0-rc.0
+                    env:
+                    - name: WATCH_NAMESPACE
+                      valueFrom:
+                        fieldRef:
+                          fieldPath: metadata.annotations['olm.targetNamespaces']
+                    - name: RELATED_IMAGE_TAILING_SIDECAR_OPERATOR
+                      value: quay.io/yoza/tailing-sidecar-operator-test-1:latest
+                    - name: RELATED_IMAGE_SUMOLOGIC_FLUENTD
+                      value: quay.io/yoza/sumologic-fluentd-ubi:1.12.1
+                    - name: RELATED_IMAGE_NODE_EXPORTER
+                      value: registry.redhat.io/openshift4/ose-prometheus-node-exporter:v4.7
+                    - name: RELATED_IMAGE_KUBE_STATE_METRICS
+                      value: quay.io/yoza/kube-state-metrics-ubi-test:v1.9.7
+                    - name: RELATED_IMAGE_PROMETHEUS_OPERATOR
+                      value: quay.io/yoza/prometheus-operator-ubi-test:v0.43.2
+                    - name: RELATED_IMAGE_PROMETHEUS_UBI_TEST
+                      value: quay.io/yoza/prometheus-ubi-test:v2.22.1
+                    - name: RELATED_IMAGE_PROMETHEUS_ALERTMANAGER
+                      value: registry.redhat.io/openshift4/ose-prometheus-alertmanager:v4.6
+                    - name: RELATED_IMAGE_PROMETHEUS_CONFIG_RELOADER
+                      value: registry.redhat.io/openshift4/ose-prometheus-config-reloader:v4.7.0
+                    - name: RELATED_IMAGE_THANOS
+                      value: registry.redhat.io/openshift4/ose-thanos-rhel8:v4.6
+                    - name: RELATED_IMAGE_FALCO
+                      value: quay.io/madorn/falco:0.27.0
+                    - name: RELATED_IMAGE_TELEGRAF_OPERATOR
+                      value: quay.io/yoza/telegraf-operator-ubi-test:v1.1.1
                     livenessProbe:
                       httpGet:
                         path: /healthz

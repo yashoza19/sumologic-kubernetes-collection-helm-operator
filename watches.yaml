@@ -3,4 +3,25 @@
   version: v1alpha1
   kind: SumologicCollection
   chart: helm-charts/sumologic
-#+kubebuilder:scaffold:watch
+  overrideValues:
+    falco.image.registry: "quay.io"
+    falco.image.repository: "madorn/falco"
+    falco.image.tag: "0.27.0"
+    telegraf-operator.image.repository: "quay.io/yoza/telegraf-operator-ubi-test:v1.1.1"
+    operator.image.repository: "quay.io/yoza/tailing-sidecar-operator-test-1"
+    operator.image.tag: "latest"
+    fluentd.image.repository: "quay.io/yoza/sumologic-fluentd-ubi"
+    fluentd.image.tag: "1.12.1"
+    kube-prometheus-stack.prometheus-node-exporter.image.repository: "registry.redhat.io/openshift4/ose-prometheus-node-exporter"
+    kube-prometheus-stack.prometheus-node-exporter.image.tag: "v4.7"
+    kube-prometheus-stack.kube-state-metrics.image.repository: "quay.io/yoza/kube-state-metrics-ubi-test"
+    kube-prometheus-stack.kube-state-metrics.image.tag: "v1.9.7"
+    kube-prometheus-stack.prometheusOperator.image.repository: "quay.io/yoza/prometheus-operator-ubi-test"
+    kube-prometheus-stack.prometheusOperator.image.tag: "v0.43.2"
+    kube-prometheus-stack.prometheus.prometheusSpec.image.repository: "quay.io/yoza/prometheus-ubi-test:v2.22.1"
+    kube-prometheus-stack.prometheus.prometheusSpec.image.tag: "v2.22.1"
+    kube-prometheus-stack.alertmanager.alertmanagerSpec.image.repository: "registry.redhat.io/openshift4/ose-prometheus-alertmanager"
+    kube-prometheus-stack.alertmanager.alertmanagerSpec.image.tag: "v4.6"
+    kube-prometheus-stack.prometheusOperator.prometheusConfigReloaderImage.repository: "registry.redhat.io/openshift4/ose-prometheus-config-reloader"
+    kube-prometheus-stack.prometheusOperator.prometheusConfigReloaderImage.tag: "v4.7.0"
+    kube-prometheus-stack.prometheus.prometheusSpec.thanos.baseImage: "registry.redhat.io/openshift4/ose-thanos-rhel8:v4.6"
