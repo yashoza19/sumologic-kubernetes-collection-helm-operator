@@ -1,5 +1,5 @@
 # Build the manager binary
-FROM quay.io/operator-framework/helm-operator:v1.7.1
+FROM ghcr.io/kkujawa-sumo/helm-operator:v1.10.0-9-ga4b99a8b
 
 ARG VERSION=${VERSION}
 ARG RELEASE_NUMBER=${RELEASE_NUMBER}

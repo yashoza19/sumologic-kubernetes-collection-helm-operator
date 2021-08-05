@@ -1998,7 +1998,54 @@ spec:
                       - --metrics-bind-address=127.0.0.1:8080
                       - --leader-elect
                       - --leader-election-id=sumologic-kubernetes-collection-helm-operator
-                    image: public.ecr.aws/sumologic/sumologic-kubernetes-collection-helm-operator:2.1.4-0-rc.0
+                    env:
+                      - name: WATCH_NAMESPACE
+                        valueFrom:
+                          fieldRef:
+                            fieldPath: metadata.annotations['olm.targetNamespaces']
+                      - name: POD_NAME
+                        valueFrom:
+                          fieldRef:
+                            fieldPath: metadata.name
+                      - name: OPERATOR_NAME
+                        value: sumologic-kubernetes-collection-helm-operator
+                      - name: RELATED_IMAGE_KUBERNETES_SETUP
+                        value: public.ecr.aws/sumologic/kubernetes-setup:3.0.0-ubi
+                      - name: RELATED_IMAGE_NODE_EXPORTER
+                        value: public.ecr.aws/sumologic/node-exporter:v1.0.1-ubi
+                      - name: RELATED_IMAGE_KUBE_STATE_METRICS
+                        value: public.ecr.aws/sumologic/kube-state-metrics:v1.9.7-ubi
+                      - name: RELATED_IMAGE_PROMETHEUS_OPERATOR
+                        value: public.ecr.aws/sumologic/prometheus-operator:v0.43.2-ubi
+                      - name: RELATED_IMAGE_PROMETHEUS_CONFIG_RELOADER
+                        value: public.ecr.aws/sumologic/prometheus-config-reloader:v0.43.2-ubi
+                      - name: RELATED_IMAGE_PROMETHEUS
+                        value: public.ecr.aws/sumologic/prometheus:v2.22.1-ubi
+                      - name: RELATED_IMAGE_THANOS
+                        value: public.ecr.aws/sumologic/thanos:v0.10.0-ubi
+                      - name: RELATED_IMAGE_METRICS_SERVER
+                        value: public.ecr.aws/sumologic/metrics-server:0.4.2-debian-10-r58-ubi
+                      - name: RELATED_IMAGE_KUBE_RBAC_PROXY
+                        value: public.ecr.aws/sumologic/kube-rbac-proxy:v0.5.0-ubi
+                      - name: RELATED_IMAGE_TAILING_SIDECAR_OPERATOR
+                        value: ghcr.io/sumologic/tailing-sidecar-operator:0.3.1-ubi
+                      - name: RELATED_IMAGE_TAILING_SIDECAR
+                        value: ghcr.io/sumologic/tailing-sidecar:0.3.1-ubi
+                      - name: RELATED_IMAGE_TELEGRAF_OPERATOR
+                        value: public.ecr.aws/sumologic/telegraf-operator-ubi:v1.1.1
+                      - name: RELATED_IMAGE_TELEGRAF
+                        value: public.ecr.aws/sumologic/telegraf:1.14.4-ubi
+                      - name: RELATED_IMAGE_KUBERNETES_FLUENTD
+                        value: public.ecr.aws/sumologic/kubernetes-fluentd:1.12.2-sumo-0-ubi
+                      - name: RELATED_IMAGE_FLUENT_BIT
+                        value: public.ecr.aws/sumologic/fluent-bit:1.6.10-ubi
+                      - name: RELATED_IMAGE_FALCO
+                        value: public.ecr.aws/sumologic/falco:0.27.0
+                      - name: RELATED_IMAGE_SUMO_UBI_MINIMAL
+                        value: public.ecr.aws/sumologic/sumo-ubi-minimal:8.4
+                      - name: RELATED_IMAGE_OPENTELEMETRY_COLLECTOR
+                        value: public.ecr.aws/sumologic/opentelemetry-collector:0.22.0-sumo-ubi
+                    image: ghcr.io/kkujawa-sumo/sumologic-kubernetes-collection-helm-operator:v2.1.4-0-rc.0-3-g7cb85bd
                     livenessProbe:
                       httpGet:
                         path: /healthz
