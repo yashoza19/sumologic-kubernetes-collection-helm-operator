@@ -23,6 +23,8 @@ kubectl wait --for=condition=ready --timeout 300s pod -l control-plane=sumologic
 
 kubectl apply -f tests/test_openshift.yaml -n sumologic-system
 
+kubectl get pod --all-namespaces
+
 wait_for_collection_resources "${NAMESPACE}" "${TIME}"
 
 helm get manifest -n "${NAMESPACE}" test-openshift > helm_operator_templates.yaml
