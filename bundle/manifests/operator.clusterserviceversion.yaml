@@ -2026,7 +2026,7 @@ spec:
                       - name: RELATED_IMAGE_METRICS_SERVER
                         value: public.ecr.aws/sumologic/metrics-server@sha256:707e40ee919e4bc3c2edeecdc536acdf8cb67f9e5fc34eaad9d9e4c283438bb1
                       - name: RELATED_IMAGE_KUBE_RBAC_PROXY
-                        value: public.ecr.aws/sumologic/kube-rbac-proxy@sha256:707e40ee919e4bc3c2edeecdc536acdf8cb67f9e5fc34eaad9d9e4c283438bb1
+                        value: public.ecr.aws/sumologic/kube-rbac-proxy@sha256:f92b5704d9d1290b1dd9cc8bfcc445e3e118794e8cf9531f439994ee4d2523a6
                       - name: RELATED_IMAGE_TAILING_SIDECAR_OPERATOR
                         value: ghcr.io/sumologic/tailing-sidecar-operator@sha256:1d9d902b165596e12a626f5dd2f9d512627b356c3773a04c96df24270a840724
                       - name: RELATED_IMAGE_TAILING_SIDECAR
